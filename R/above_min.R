@@ -11,7 +11,7 @@
 #' @export
 #'
 #' @examples
-above_min <- function(TE, LCL, min_diff, only_outcome = FALSE, lower_better = TRUE, RR = TRUE){
+above_min <- function(TE, LCL, min_diff, only_outcome = FALSE, only_graphdata = FALSE, lower_better = TRUE, RR = TRUE){
   # get logs
   if(RR){
     min_diff <- log(min_diff)
@@ -57,6 +57,8 @@ above_min <- function(TE, LCL, min_diff, only_outcome = FALSE, lower_better = TR
     )
 
     dat <- data.frame(x = exp(x), y = y)
+
+    if(only_graphdata) return(list(perc_orig, x, y, ci_u, ci_l))
 
     if(only_outcome){
       return(perc_orig)

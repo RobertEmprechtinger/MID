@@ -30,7 +30,7 @@ above_min <- function(TE, LCL, min_diff, only_outcome = FALSE, only_graphdata = 
 
   x <- seq(qnorm(0.0001, TE, SE),
            qnorm(0.999, TE, SE),
-           by = 0.001)
+           length.out = 2000)
 
   y <- dnorm(x, TE, SE)
 
@@ -58,12 +58,14 @@ above_min <- function(TE, LCL, min_diff, only_outcome = FALSE, only_graphdata = 
 
     dat <- data.frame(x = exp(x), y = y)
 
+    # if only the data for the graphs needs to be exported
     if(only_graphdata) return(list(perc_orig, x, y, ci_u, ci_l))
 
+    # if only the percentage value needs to be exported
     if(only_outcome){
       return(perc_orig)
     } else{
-
+    # export the plot
       dat %>%
         ggplot(aes(x = x, y = y)) +
         geom_line(alpha = 0.3, size = 1) +

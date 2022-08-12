@@ -60,7 +60,7 @@ above_min <- function(TE, LCL, min_diff, only_outcome = FALSE, only_graphdata = 
 
     # if only the data for the graphs needs to be exported
     if(only_graphdata) return(list(perc_orig, x, y, ci_u, ci_l,
-                                   exp(min_diff)))
+                                   min_diff, exp(min_diff)))
 
     # if only the percentage value needs to be exported
     if(only_outcome){

@@ -59,7 +59,8 @@ above_min <- function(TE, LCL, min_diff, only_outcome = FALSE, only_graphdata = 
     dat <- data.frame(x = exp(x), y = y)
 
     # if only the data for the graphs needs to be exported
-    if(only_graphdata) return(list(perc_orig, x, y, ci_u, ci_l))
+    if(only_graphdata) return(list(perc_orig, x, y, ci_u, ci_l,
+                                   exp(min_diff)))
 
     # if only the percentage value needs to be exported
     if(only_outcome){
@@ -69,15 +70,15 @@ above_min <- function(TE, LCL, min_diff, only_outcome = FALSE, only_graphdata = 
       dat %>%
         ggplot(aes(x = x, y = y)) +
         geom_line(alpha = 0.3, size = 1) +
-        geom_area(data = filter(dat, x >= exp(LCL), x <= exp(UCL)), fill = "black", alpha = 0.2) -> p
+        geom_area(data =dplyr::filter(dat, x >= exp(LCL), x <= exp(UCL)), fill = "black", alpha = 0.2) -> p
 
       # change are direction if lower values are better
       if(lower_better){
         p <- p +
-          geom_area(data = filter(dat, x <= exp(min_diff)), fill = "#72b87f", alpha = 1)
+          geom_area(data =dplyr::filter(dat, x <= exp(min_diff)), fill = "#72b87f", alpha = 1)
       } else {
         p <- p +
-          geom_area(data = filter(dat, x >= exp(min_diff)), fill = "#72b87f", alpha = 1)
+          geom_area(data =dplyr::filter(dat, x >= exp(min_diff)), fill = "#72b87f", alpha = 1)
       }
 
       p +
@@ -111,21 +112,25 @@ above_min <- function(TE, LCL, min_diff, only_outcome = FALSE, only_graphdata = 
 
     dat <- data.frame(x = x, y = y)
 
+    # if only the data for the graphs needs to be exported
+    if(only_graphdata) return(list(perc_orig, x, y, ci_u, ci_l,
+                                   exp(min_diff)))
+
     if(only_outcome){
       return(perc_orig)
     } else{
       dat %>%
         ggplot(aes(x = x, y = y)) +
         geom_line(alpha = 0.3, size = 1) +
-        geom_area(data = filter(dat, x >= LCL, x <= UCL), fill = "black", alpha = 0.2) -> p
+        geom_area(data =dplyr::filter(dat, x >= LCL, x <= UCL), fill = "black", alpha = 0.2) -> p
 
       # change are direction if lower values are better
       if(lower_better){
         p <- p +
-          geom_area(data = filter(dat, x <= min_diff), fill = "#72b87f", alpha = 1)
+          geom_area(data =dplyr::filter(dat, x <= min_diff), fill = "#72b87f", alpha = 1)
       } else {
         p <- p +
-          geom_area(data = filter(dat, x >= min_diff), fill = "#72b87f", alpha = 1)
+          geom_area(data =dplyr::filter(dat, x >= min_diff), fill = "#72b87f", alpha = 1)
       }
 
       p +
@@ -153,3 +158,14 @@ above_min <- function(TE, LCL, min_diff, only_outcome = FALSE, only_graphdata = 
 }
 
 # above_min(1.1, 0.1, 0.6, RR = FALSE)
+
+
+#TE <- 0.5
+#LCL <- 0.4
+#min_diff = 0.45
+#only_outcome = FALSE
+#only_graphdata = FALSE
+#lower_better = TRUE
+#RR = TRUE
+
+

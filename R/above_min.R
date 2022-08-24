@@ -39,10 +39,10 @@ above_min <-  function(TE, LCL, min_diff, only_outcome = FALSE, only_graphdata =
 
   # get the percentage above the min_diff
   perc_orig <- pnorm(min_diff, TE, SE)
+  percentages <- pnorm(x, TE, SE)
 
   if(lower_better){
     below_or_above <- "Below"
-    percentages <- pnorm(x, TE, SE)
   } else {
     perc_orig <- 1 - perc_orig
     percentages <- 1- percentages
@@ -127,6 +127,8 @@ above_min <-  function(TE, LCL, min_diff, only_outcome = FALSE, only_graphdata =
 
 
 # above_min(1.1, 0.1, 0.6, RR = FALSE)
+
+
 
 
 

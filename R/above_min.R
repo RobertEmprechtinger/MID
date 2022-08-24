@@ -61,8 +61,10 @@ above_min <-  function(TE, LCL, min_diff, only_outcome = FALSE, only_graphdata =
     LCL <- exp(LCL)
     UCL <- exp(UCL)
     TE <- exp(TE)
+    no_effect <- 1
   } else{
     effect_size <- ""
+    no_effext <- 0
   }
 
   # create plot annotation for effect size and CI

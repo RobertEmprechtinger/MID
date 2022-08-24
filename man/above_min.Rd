@@ -30,3 +30,6 @@ above_min(
 \description{
 Calculate area under the curve of a CI that is above a certain treatment effect
 }
+\examples{
+above_min(1.1, 0.1, 0.6, RR = FALSE)
+}

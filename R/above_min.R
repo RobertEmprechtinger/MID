@@ -11,15 +11,7 @@
 #' @export
 #'
 #' @examples
-#'
-TE <- 2
-LCL <- 0.8
-min_diff = 1.2
-only_outcome = FALSE
-only_graphdata = FALSE
-lower_better = FALSE
-RR = TRUE
-
+#' above_min(1.1, 0.1, 0.6, RR = FALSE)
 above_min <-  function(TE, LCL, min_diff, only_outcome = FALSE, only_graphdata = FALSE, lower_better = TRUE, RR = TRUE){
   # if RR is used get log values
   if(RR){
@@ -33,7 +25,7 @@ above_min <-  function(TE, LCL, min_diff, only_outcome = FALSE, only_graphdata =
   UCL <- TE + diff_value
 
 
-  SE <- SEp_from_CIp(LCL, UCL, t_dist = FALSE)
+  SE <- metaHelper::SEp_from_CIp(LCL, UCL, t_dist = FALSE)
 
   x <- seq(qnorm(0.0001, TE, SE),
            qnorm(0.999, TE, SE),
@@ -131,7 +123,7 @@ above_min <-  function(TE, LCL, min_diff, only_outcome = FALSE, only_graphdata =
 
 
 
-above_min(2, 0.8, 1.2, RR = TRUE, lower_better = FALSE)
+#above_min(2, 0.8, 1.2, RR = TRUE, lower_better = FALSE)
 
 
 # above_min(1.1, 0.1, 0.6, RR = FALSE)

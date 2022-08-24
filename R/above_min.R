@@ -18,7 +18,7 @@ min_diff = 1.2
 only_outcome = FALSE
 only_graphdata = FALSE
 lower_better = FALSE
-RR = FALSE
+RR = TRUE
 
 above_min <-  function(TE, LCL, min_diff, only_outcome = FALSE, only_graphdata = FALSE, lower_better = TRUE, RR = TRUE){
   # if RR is used get log values
@@ -50,8 +50,10 @@ above_min <-  function(TE, LCL, min_diff, only_outcome = FALSE, only_graphdata =
 
   if(lower_better){
     below_or_above <- "Below"
+    percentages <- pnorm(x, TE, SE)
   } else {
     perc_orig <- 1 - perc_orig
+    percentages <- 1- percentages
     below_or_above <- "Above"
   }
   perc <- round(100 * perc_orig, 1)
@@ -82,8 +84,9 @@ above_min <-  function(TE, LCL, min_diff, only_outcome = FALSE, only_graphdata =
   dat <- data.frame(x = x, y = y)
 
   # if only the data for the graphs needs to be exported
-  if(only_graphdata) return(list(perc_orig, x, y, ci_u, ci_l,
-                                 min_diff))
+  if(only_graphdata){
+    return(list(perc_orig, x, y, ci_u, ci_l, min_diff, percentages))
+  }
 
   # if only the percentage value needs to be exported
   if(only_outcome){
